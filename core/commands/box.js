@@ -1,12 +1,22 @@
 const mysql = require('mysql');
 
 cnn = mysql.createConnection({
-    host: "maffocompany.it",
-    user: "root",
-    password: "u0fcac4t",
+    host: process.env.host,
+    user: process.env.user,
+    password: process.env.password,
     port: 5604,
     database: "botTax"
 });   
+
+/*
+cnn = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    port: 3306,
+    database: "pokemon"
+});   
+*/
 
 module.exports = (ctx) => { 
     
@@ -24,7 +34,7 @@ module.exports = (ctx) => {
             resp +="baseDef " + results[i].Def + "\n";
             resp +="baseSpeed: " + results[i].Speed;
 
-            //aggiungere gestione immagine
+            //add image
         }
         ctx.reply(resp);
         console.log(resp);

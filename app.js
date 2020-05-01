@@ -15,4 +15,6 @@ bot.command('box', command.box);
 
 bot.command('save', command.save);
 
+bot.command('help', command.help);
+
 bot.launch();
