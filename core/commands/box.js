@@ -6,17 +6,7 @@ cnn = mysql.createConnection({
     password: process.env.password,
     port: 5604,
     database: "botTax"
-});   
-
-/*
-cnn = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    port: 3306,
-    database: "pokemon"
-});   
-*/
+});
 
 module.exports = (ctx) => { 
     
@@ -33,8 +23,6 @@ module.exports = (ctx) => {
             resp +="baseAtk: " + results[i].Atk + "\n";
             resp +="baseDef " + results[i].Def + "\n";
             resp +="baseSpeed: " + results[i].Speed;
-
-            //add image
         }
         ctx.reply(resp);
         console.log(resp);

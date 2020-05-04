@@ -1,5 +1,5 @@
 const Telegraf = require('telegraf');
-const token = '1115776649:AAHFt2ihfQHb4atXQ57Tov4Q-RF6rqzIz8Q';
+const token = process.env.token;
 const bot = new Telegraf(token);
 const command = require('./core/command.js');
 const express = require('express');
@@ -19,17 +19,16 @@ cnn = mysql.createConnection({
     password: process.env.password,
     port: 5604,
     database: "botTax"
-});   
+});
 
 let queryString = "Select * from graph"
 
-cnn.query(queryString, (error,results) => {
-    if(error)
+cnn.query(queryString, (error, results) => {
+    if (error)
         throw error;
     let resp = "";
-    for(i in results)
-    {
-        pkmn += results[i].pkmn ;
+    for (i in results) {
+        pkmn += results[i].pkmn;
         move += results[i].move;
         base += results[i].base;
         box += results[i].box;
@@ -38,12 +37,11 @@ cnn.query(queryString, (error,results) => {
     }
 });
 
-
-bot.start( () => ctx.reply("Scrivi /comando + nomepokemon"));
+bot.start(() => ctx.reply("Scrivi /comando + nomepokemon"));
 
 app.set("view engine", "ejs");
 
-app.get("/object", (req,res) => {
+app.get("/object", (req, res) => {
     res.send([pkmn, move, base, box, save, help]);
 });
 
@@ -52,30 +50,30 @@ bot.command('pokemon', (ctx) => {
     pkmn++;
 
     queryString = "UPDATE graph SET pkmn = ?"
-    cnn.query(queryString, [pkmn], (error,results) => {
-        if(error)
+    cnn.query(queryString, [pkmn], (error, results) => {
+        if (error)
             throw error;
     });
 });
 
-bot.command('moves',  (ctx) => {
+bot.command('moves', (ctx) => {
     command.moves(ctx);
     move++;
 
     queryString = "UPDATE graph SET move = ?"
-    cnn.query(queryString, [move], (error,results) => {
-        if(error)
+    cnn.query(queryString, [move], (error, results) => {
+        if (error)
             throw error;
     });
 });
 
-bot.command('basestats',  (ctx) => {
+bot.command('basestats', (ctx) => {
     command.basestats(ctx);
     base++;
 
     queryString = "UPDATE graph SET base = ?"
-    cnn.query(queryString, [base], (error,results) => {
-        if(error)
+    cnn.query(queryString, [base], (error, results) => {
+        if (error)
             throw error;
     });
 });
@@ -85,19 +83,19 @@ bot.command('box', (ctx) => {
     box++;
 
     queryString = "UPDATE graph SET box = ?"
-    cnn.query(queryString, [box], (error,results) => {
-        if(error)
+    cnn.query(queryString, [box], (error, results) => {
+        if (error)
             throw error;
     });
 });
 
-bot.command('save',  (ctx) => {
+bot.command('save', (ctx) => {
     command.save(ctx);
     save++;
 
     queryString = "UPDATE graph SET save = ?"
-    cnn.query(queryString, [save], (error,results) => {
-        if(error)
+    cnn.query(queryString, [save], (error, results) => {
+        if (error)
             throw error;
     });
 });
@@ -107,15 +105,15 @@ bot.command('help', (ctx) => {
     help++;
 
     queryString = "UPDATE graph SET help = ?"
-    cnn.query(queryString, [help], (error,results) => {
-        if(error)
+    cnn.query(queryString, [help], (error, results) => {
+        if (error)
             throw error;
     });
 });
 
 bot.launch();
 
-app.get("/", (req,res)=> {
+app.get("/", (req, res) => {
     res.render("index");
 });
 

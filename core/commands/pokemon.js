@@ -11,9 +11,8 @@ module.exports = (ctx) => {
     splitted = tosplit.split(" ");
     console.log(message);
 
-    axios.get('https://pokeapi.co/api/v2/pokemon/' + splitted[1])
+    axios.get('https://pokeapi.co/api/v2/pokemon/' + splitted[1].toString().toLowerCase())
         .then( (response) => {
-
         types = response.data.types;
         abilities = response.data.abilities;
     

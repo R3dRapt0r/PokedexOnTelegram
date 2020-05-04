@@ -14,24 +14,14 @@ cnn = mysql.createConnection({
     password: process.env.password,
     port: 5604,
     database: "botTax"
-});   
-
-/*
-cnn = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    port: 3306,
-    database: "pokemon"
 });
-*/   
 
 module.exports = (ctx) => {
     message = ctx.message;
     tosplit = message.text;
     splitted = tosplit.split(" ");
     console.log(message);
-    axios.get('https://pokeapi.co/api/v2/pokemon/' + splitted[1])
+    axios.get('https://pokeapi.co/api/v2/pokemon/' + splitted[1].toString().toLowerCase())
         .then( (response) => {
             types = response.data.types;
 
